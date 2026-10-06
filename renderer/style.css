@@ -1,0 +1,471 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: #F3F3F3;
+  color: #1B1B1B;
+  font-family: 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-y: auto;
+  user-select: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px 24px 24px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Baner ostrzegawczy */
+.banner {
+  background: #FFF4CE;
+  border: 1px solid #E8C766;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+.banner p {
+  margin: 0;
+}
+
+.banner p + p {
+  margin-top: 6px;
+}
+
+/* Konto dziecka */
+.account-row {
+  display: flex;
+  align-items: center;
+}
+
+.account-label {
+  width: 120px;
+  font-weight: 600;
+}
+
+/* Lista wyboru konta (w stylu ComboBox z Windows 11) */
+.picker {
+  position: relative;
+  width: 200px;
+}
+
+.picker-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 32px;
+  padding: 0 8px 0 11px;
+  font: inherit;
+  color: #1B1B1B;
+  text-align: left;
+  background: #FFFFFF;
+  border: 1px solid #D1D1D1;
+  border-bottom-color: #8A8A8A;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+.picker-button:hover:not(:disabled) {
+  background: #F9F9F9;
+}
+
+.picker-button:active:not(:disabled) {
+  background: #F5F5F5;
+}
+
+.picker-button:focus-visible {
+  outline: 2px solid #1B1B1B;
+  outline-offset: 2px;
+}
+
+.picker-button[aria-expanded="true"] {
+  border-bottom: 2px solid #005FB8;
+}
+
+.picker-button:disabled {
+  color: #8A8A8A;
+  background: #F5F5F5;
+  border-color: #E1E1E1;
+  cursor: default;
+}
+
+.picker-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.picker-chevron {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  color: #5D5D5D;
+  transition: transform 0.15s ease;
+}
+
+.picker-button[aria-expanded="true"] .picker-chevron {
+  transform: rotate(180deg);
+}
+
+.picker-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  max-height: 260px;
+  margin: 0;
+  padding: 4px;
+  overflow-y: auto;
+  list-style: none;
+  background: #FFFFFF;
+  border: 1px solid #E1E1E1;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14), 0 1px 4px rgba(0, 0, 0, 0.08);
+  outline: none;
+  animation: drop-in 0.12s ease-out;
+}
+
+.picker-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  margin: 2px 0;
+  padding: 0 10px 0 14px;
+  border-radius: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.picker-option.active {
+  background: #F3F3F3;
+}
+
+.picker-option[aria-selected="true"] {
+  background: #EDEDED;
+}
+
+.picker-option[aria-selected="true"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 16px;
+  margin-top: -8px;
+  border-radius: 2px;
+  background: #005FB8;
+}
+
+@keyframes drop-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Karty */
+.card {
+  background: #FFFFFF;
+  border: 1px solid #E1E1E1;
+  border-radius: 6px;
+}
+
+.days-card {
+  padding: 6px 16px 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 64px 92px 92px 108px;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.grid-head {
+  height: 36px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #3B3B3B;
+}
+
+.center {
+  text-align: center;
+  justify-self: center;
+}
+
+.day-row {
+  height: 44px;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.day-row:last-child {
+  border-bottom: none;
+}
+
+.day-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.day-name.today {
+  font-weight: 600;
+}
+
+.day-row.off .day-name {
+  color: #6B6B6B;
+}
+
+.day-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #005FB8;
+  justify-self: center;
+  cursor: pointer;
+}
+
+/* Pola */
+input[type="number"] {
+  font: inherit;
+  color: #1B1B1B;
+  background: #FFFFFF;
+  border: 1px solid #D1D1D1;
+  border-bottom-color: #8A8A8A;
+  border-radius: 4px;
+  height: 32px;
+  padding: 0 8px;
+  outline: none;
+}
+
+input[type="number"] {
+  width: 80px;
+}
+
+input.limit-input {
+  width: 90px;
+}
+
+input[type="number"]:focus {
+  border-bottom: 2px solid #005FB8;
+}
+
+input[type="number"]:disabled {
+  background: #F5F5F5;
+  color: #8A8A8A;
+  border-color: #E1E1E1;
+}
+
+input[type="number"].invalid {
+  border-color: #B3261E;
+}
+
+.hint {
+  margin: 0;
+  font-size: 12.5px;
+  color: #555555;
+}
+
+/* Status */
+.status-card {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-text {
+  margin: 0;
+  font-weight: 600;
+}
+
+.progress {
+  height: 6px;
+  background: #E5E5E5;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: #005FB8;
+  border-radius: 3px;
+  transition: width 0.4s ease, background-color 0.2s;
+}
+
+.progress-fill.danger {
+  background: #B3261E;
+}
+
+.status-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Przyciski */
+.btn {
+  font: inherit;
+  color: #1B1B1B;
+  background: #FBFBFB;
+  border: 1px solid #D1D1D1;
+  border-bottom-color: #B5B5B5;
+  border-radius: 4px;
+  height: 34px;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  background: #F6F6F6;
+}
+
+.btn:active:not(:disabled) {
+  background: #F0F0F0;
+}
+
+.btn:disabled {
+  color: #8A8A8A;
+  cursor: default;
+}
+
+.btn:focus-visible,
+input[type="checkbox"]:focus-visible {
+  outline: 2px solid #1B1B1B;
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  height: 36px;
+  background: #005FB8;
+  border-color: #004C94;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #0067C0;
+}
+
+.btn-primary:active:not(:disabled) {
+  background: #005299;
+}
+
+.btn-primary:disabled {
+  background: #5A8FC4;
+  border-color: #5A8FC4;
+  color: #FFFFFF;
+}
+
+/* Okno potwierdzenia (w stylu ContentDialog z Windows 11) */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.3);
+  animation: fade-in 0.15s ease-out;
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  background: #FFFFFF;
+  border: 1px solid #E1E1E1;
+  border-radius: 8px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22), 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: pop-in 0.18s ease-out;
+}
+
+.modal-body {
+  padding: 22px 24px 24px;
+}
+
+.modal-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.modal-text {
+  margin: 0;
+}
+
+.modal-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 20px 24px;
+  background: #F3F3F3;
+  border-top: 1px solid #E5E5E5;
+}
+
+.modal-footer .btn {
+  height: 34px;
+  padding: 0 12px;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop,
+  .modal,
+  .picker-list {
+    animation: none;
+  }
+}
+
+/* Stopka */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.message {
+  flex: 1;
+  margin: 0 8px 0 0;
+  font-size: 13px;
+  color: #555555;
+}
+
+.message.success {
+  color: #0E6B2E;
+}
+
+.message.error {
+  color: #B3261E;
+}
